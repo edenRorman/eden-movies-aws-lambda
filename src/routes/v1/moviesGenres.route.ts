@@ -15,9 +15,10 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.get("/:genreName", async (req: Request, res: Response) => {
   try {
-    const moviesByGenres = randomMovies.filter((movie) =>
-      movie.genres.includes(req.params["genreName"])
-    );
+    const moviesByGenres = randomMovies.filter((movie) => {
+      if (movie.genres) return movie.genres.includes(req.params["genreName"]);
+      return false;
+    });
     res.status(200).json(moviesByGenres);
   } catch (error) {
     console.error("An error ocurred:", error);
