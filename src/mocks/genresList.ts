@@ -9,7 +9,6 @@ const allGenres: string[] = [
   "Drama",
   "Family",
   "Fantasy",
-  "Film-Noir",
   "Game-Show",
   "History",
   "Horror",
