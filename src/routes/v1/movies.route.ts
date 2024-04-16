@@ -2,13 +2,14 @@ import { Request, Response, Router } from "express";
 import randomMovies from "../../mocks/randomMovies";
 import upcomimg from "../../mocks/upcomingMovies";
 import moviesGenres from "./moviesGenres.route";
+import shuffle from "../../utils";
 
 const router = Router();
 router.use("/genres", moviesGenres);
 
 router.get("/random", async (req: Request, res: Response) => {
   try {
-    res.status(200).json(randomMovies);
+    res.status(200).json(shuffle(randomMovies));
   } catch (error) {
     console.error("An error ocurred:", error);
     res.status(500).json(error);
