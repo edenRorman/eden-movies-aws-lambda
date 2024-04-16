@@ -1,4 +1,30 @@
-const upcomimg = [
+import Movie from "../MovieDataModel";
+
+const upcomimg: Movie[] = [
+  {
+    id: "tt10994300",
+    ratingsSummary: {},
+    primaryImageUrl:
+      "https:m.media-amazon.com/images/M/MV5BYWUwMjVhY2ItNThhZC00MzE4LWI3YmItYjNiZmYwZDZiNjcyXkEyXkFqcGdeQXVyMzE2NDI5NzI@._V1_.jpg",
+    title: "A Figgly Christmas",
+    releaseYear: 2025,
+  },
+  {
+    id: "tt11152168",
+    ratingsSummary: {},
+    primaryImageUrl:
+      "https:m.media-amazon.com/images/M/MV5BNWViZjhjZjYtZTBkMy00Nzg0LTg1ODgtYjMxNjM3MDJmNWNkXkEyXkFqcGdeQXVyMTM1NjM2ODg1._V1_.jpg",
+    title: "IF",
+    releaseYear: 2024,
+  },
+  {
+    id: "tt1117392",
+    ratingsSummary: {},
+    primaryImageUrl:
+      "https:m.media-amazon.com/images/M/MV5BNjc3NzI2MDQtYTNiYi00Mjk3LThkMTYtMWI1YTkxNGI4ZGJmXkEyXkFqcGdeQXVyNDI2MTA0OA@@._V1_.jpg",
+    title: "The Ark and the Aardvark",
+    releaseYear: 2026,
+  },
   {
     id: "tt10209920",
     ratingsSummary: {},
@@ -104,30 +130,6 @@ const upcomimg = [
       "https:m.media-amazon.com/images/M/MV5BNmI0NDY5Y2QtYzU2MC00NzFkLWExYWQtYzJlOTFkYmQyZGYyXkEyXkFqcGdeQXVyODczNDEwMjk@._V1_.jpg",
     title: "Brought in with the Dust",
     releaseYear: 2025,
-  },
-  {
-    id: "tt10994300",
-    ratingsSummary: {},
-    primaryImageUrl:
-      "https:m.media-amazon.com/images/M/MV5BYWUwMjVhY2ItNThhZC00MzE4LWI3YmItYjNiZmYwZDZiNjcyXkEyXkFqcGdeQXVyMzE2NDI5NzI@._V1_.jpg",
-    title: "A Figgly Christmas",
-    releaseYear: 2025,
-  },
-  {
-    id: "tt11152168",
-    ratingsSummary: {},
-    primaryImageUrl:
-      "https:m.media-amazon.com/images/M/MV5BNWViZjhjZjYtZTBkMy00Nzg0LTg1ODgtYjMxNjM3MDJmNWNkXkEyXkFqcGdeQXVyMTM1NjM2ODg1._V1_.jpg",
-    title: "IF",
-    releaseYear: 2024,
-  },
-  {
-    id: "tt1117392",
-    ratingsSummary: {},
-    primaryImageUrl:
-      "https:m.media-amazon.com/images/M/MV5BNjc3NzI2MDQtYTNiYi00Mjk3LThkMTYtMWI1YTkxNGI4ZGJmXkEyXkFqcGdeQXVyNDI2MTA0OA@@._V1_.jpg",
-    title: "The Ark and the Aardvark",
-    releaseYear: 2026,
   },
   {
     id: "tt11237950",

@@ -27,9 +27,9 @@ router.get("/upcomimg", async (req: Request, res: Response) => {
 
 router.get("/:id", async (req: Request, res: Response) => {
   try {
-    const moviesById = randomMovies.filter((movie) =>
-      movie.id.includes(req.params["id"])
-    );
+    const moviesById = randomMovies
+      .concat(upcomimg)
+      .filter((movie) => movie.id === req.params["id"]);
 
     if (moviesById.length === 0) {
       res.status(404).json();

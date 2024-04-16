@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nodejs-aws-lambda/dev/1713280572890-2024-04-16T15:16:12.890Z/nodejs-aws-lambda.zip"
+                "S3Key": "serverless/nodejs-aws-lambda/dev/1713284674642-2024-04-16T16:24:34.642Z/nodejs-aws-lambda.zip"
               },
               "Handler": "dist/app.handler",
               "Runtime": "nodejs18.x",
@@ -192,14 +192,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersion9sCGGBzyYz8FpbWZMtcl0MtKxgfuIhx3S3mwTAZl8": {
+          "AppLambdaVersionrRWKTlLFFJocafqsrx6KZhHcBX0BtK23qCdfdF8JyU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "y9vZkoHo4l0ps+FcdiOi/SH9PvkdK/LOrscAJ9h1n3U="
+              "CodeSha256": "+Z+QPI30Vsq3au+2KLmRDjMy9e20KDMXeNantkIQoSk="
             }
           },
           "ApiGatewayRestApi": {
@@ -417,7 +417,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1713280571769": {
+          "ApiGatewayDeployment1713284673318": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -482,7 +482,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersion9sCGGBzyYz8FpbWZMtcl0MtKxgfuIhx3S3mwTAZl8"
+              "Ref": "AppLambdaVersionrRWKTlLFFJocafqsrx6KZhHcBX0BtK23qCdfdF8JyU"
             },
             "Export": {
               "Name": "sls-nodejs-aws-lambda-dev-AppLambdaFunctionQualifiedArn"
@@ -660,7 +660,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersion9sCGGBzyYz8FpbWZMtcl0MtKxgfuIhx3S3mwTAZl8"
+        "versionLogicalId": "AppLambdaVersionrRWKTlLFFJocafqsrx6KZhHcBX0BtK23qCdfdF8JyU"
       }
     },
     "configValidationMode": "warn",
@@ -679,7 +679,7 @@
     "artifact": "/Users/edenrorman/Desktop/my-movies-application/nodejs-aws-lambda/.serverless/nodejs-aws-lambda.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/nodejs-aws-lambda/dev/1713280572890-2024-04-16T15:16:12.890Z",
+    "artifactDirectoryName": "serverless/nodejs-aws-lambda/dev/1713284674642-2024-04-16T16:24:34.642Z",
     "artifact": "nodejs-aws-lambda.zip"
   }
 }

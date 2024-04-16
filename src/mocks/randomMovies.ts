@@ -1,4 +1,6 @@
-const randomMovies = [
+import Movie from "../MovieDataModel";
+
+const randomMovies: Movie[] = [
   {
     id: "tt10048342",
     ratingsSummary: {
