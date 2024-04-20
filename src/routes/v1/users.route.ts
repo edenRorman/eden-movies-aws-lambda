@@ -2,6 +2,8 @@ import { Request, Response, Router } from "express";
 import { UserAlreadyExistError } from "../../dal/errors/UserAlredyExistError";
 import { UsersDal } from "../../dal/usersDal";
 import { FavoritesDal } from "../../dal/favoriteDal";
+import randomMovies from "../../mocks/randomMovies";
+import Movie from "../../MovieDataModel";
 
 const router = Router();
 const newUserDal = new UsersDal();
@@ -36,10 +38,20 @@ router.get("/:userName", async (req: Request, res: Response) => {
 
 router.get("/:userName/favorites/", async (req: Request, res: Response) => {
   try {
-    const favorites = await newFavoriteDal.getUserFavorites(
+    const favoritesId = await newFavoriteDal.getUserFavorites(
       req.params["userName"]
     );
-    res.status(200).json(favorites);
+    let favoriteMovies: Movie[] = [];
+    for (const favoriteId of favoritesId) {
+      const fullMovie: Movie | undefined = randomMovies.find(
+        (movie) => movie.id === favoriteId
+      );
+      if (fullMovie) {
+        favoriteMovies.push(fullMovie);
+      }
+    }
+
+    res.status(200).json(favoriteMovies);
   } catch (error) {
     console.error("An error ocurred:", error);
     res.status(500).json(error);
