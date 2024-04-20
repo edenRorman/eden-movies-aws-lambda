@@ -1,9 +1,11 @@
 import { Request, Response, Router } from "express";
 import { UserAlreadyExistError } from "../../dal/errors/UserAlredyExistError";
 import { UsersDal } from "../../dal/usersDal";
+import { FavoritesDal } from "../../dal/favoriteDal";
 
 const router = Router();
 const newUserDal = new UsersDal();
+const newFavoriteDal = new FavoritesDal();
 
 router.post("/:userName", async (req: Request, res: Response) => {
   try {
@@ -31,5 +33,65 @@ router.get("/:userName", async (req: Request, res: Response) => {
     res.status(500).json(error);
   }
 });
+
+router.get("/:userName/favorites/", async (req: Request, res: Response) => {
+  try {
+    const favorites = await newFavoriteDal.getUserFavorites(
+      req.params["userName"]
+    );
+    res.status(200).json(favorites);
+  } catch (error) {
+    console.error("An error ocurred:", error);
+    res.status(500).json(error);
+  }
+});
+
+router.put(
+  "/:userName/favorites/:movieId",
+  async (req: Request, res: Response) => {
+    try {
+      await newFavoriteDal.insertUserFavorite(
+        req.params["userName"],
+        req.params["movieId"]
+      );
+      res.sendStatus(200);
+    } catch (error) {
+      console.error("An error ocurred:", error);
+      res.status(500).json(error);
+    }
+  }
+);
+
+router.delete(
+  "/:userName/favorites/:movieId",
+  async (req: Request, res: Response) => {
+    try {
+      await newFavoriteDal.deleteUserFavorite(
+        req.params["userName"],
+        req.params["movieId"]
+      );
+      res.sendStatus(200);
+    } catch (error) {
+      console.error("An error ocurred:", error);
+      res.status(500).json(error);
+    }
+  }
+);
+
+router.get(
+  "/:userName/favorites/:movieId",
+  async (req: Request, res: Response) => {
+    try {
+      const isFavorite = await newFavoriteDal.isUserFavorite(
+        req.params["userName"],
+        req.params["movieId"]
+      );
+      res.status(200).json(isFavorite);
+    } catch (error) {
+      console.error("An error ocurred:", error);
+      res.status(500).json(error);
+    }
+  }
+);
 
 export default router;

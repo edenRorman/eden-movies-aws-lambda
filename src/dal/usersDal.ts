@@ -24,7 +24,7 @@ export class UsersDal {
   async createUser(userName: string): Promise<void> {
     try {
       const insertUsers = `INSERT INTO moviesDb.USERS (userName) VALUES ('${userName}')`;
-      console.log("avout to run query: " + insertUsers);
+      console.log("about to run query: " + insertUsers);
       await this.mysql.query(insertUsers);
       console.log("ran insertUsers query successfully");
     } catch (err) {
