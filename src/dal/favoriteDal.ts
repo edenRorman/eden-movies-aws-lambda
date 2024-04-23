@@ -20,72 +20,54 @@ export class FavoritesDal {
   }
 
   async getUserFavorites(userName: string): Promise<string[]> {
-    try {
-      const getUserFavorites = `SELECT favoriteId FROM moviesDb.FAVORITES WHERE userName = ?`;
-      console.log("about to run query: " + getUserFavorites);
-      const queryResult: FavoriteModel[] = await this.mysql.query(
-        getUserFavorites,
-        [userName]
-      );
-      console.log("ran getUserFavorite query successfully");
-      const favoriteToReturn = queryResult.map(
-        (faviroteModel) => faviroteModel.favoriteId
-      );
-      return favoriteToReturn;
-    } catch (err) {
-      console.log("an error occured in getUserFavorite");
-      console.log(err);
-      throw err;
-    } finally {
-      await this.mysql.end();
-      console.log("ended mysql");
-    }
+    const query = `SELECT favoriteId FROM moviesDb.FAVORITES WHERE userName = ?`;
+    const queryResult = await this.runQuery<FavoriteModel[]>(
+      "getUserFavorites",
+      query,
+      [userName]
+    );
+
+    return queryResult.map((faviroteModel) => faviroteModel.favoriteId);
   }
 
   async insertUserFavorite(userName: string, movieId: string): Promise<void> {
-    try {
-      const insertUserFavorite = `INSERT INTO moviesDb.FAVORITES (userName, favoriteId) VALUES (?,?)`;
-      console.log("about to run query: " + insertUserFavorite);
-      await this.mysql.query(insertUserFavorite, [userName, movieId]);
-      console.log("ran insertUserFavorite query successfully");
-    } catch (err) {
-      console.log("an error occured in insertUserFavorite");
-      console.log(err);
-      throw err;
-    } finally {
-      await this.mysql.end();
-      console.log("ended mysql");
-    }
+    const query = `INSERT INTO moviesDb.FAVORITES (userName, favoriteId) VALUES (?,?)`;
+    await this.runQuery<FavoriteModel[]>("insertUserFavorite", query, [
+      userName,
+      movieId,
+    ]);
   }
 
   async deleteUserFavorite(userName: string, movieId: string): Promise<void> {
-    try {
-      const deleteUserFavorite = `DELETE FROM moviesDb.FAVORITES WHERE userName = ? AND favoriteId = ?`;
-      console.log("about to run query: " + deleteUserFavorite);
-      await this.mysql.query(deleteUserFavorite, [userName, movieId]);
-      console.log("ran deleteUserFavorite query successfully");
-    } catch (err) {
-      console.log("an error occured in deleteUserFavorite");
-      console.log(err);
-      throw err;
-    } finally {
-      await this.mysql.end();
-      console.log("ended mysql");
-    }
+    const query = `DELETE FROM moviesDb.FAVORITES WHERE userName = ? AND favoriteId = ?`;
+    await this.runQuery<FavoriteModel[]>("deleteUserFavorite", query, [
+      userName,
+      movieId,
+    ]);
   }
 
   async isUserFavorite(userName: string, movieId: string): Promise<boolean> {
+    const query = `SELECT * FROM moviesDb.FAVORITES WHERE userName = ? AND favoriteId= ?`;
+    const queryResult = await this.runQuery<FavoriteModel[]>(
+      "isUserFavorite",
+      query,
+      [userName, movieId]
+    );
+    return queryResult.length > 0;
+  }
+
+  private async runQuery<T>(
+    queryName: string,
+    query: string,
+    params: string[]
+  ): Promise<T> {
     try {
-      const isUserFavorite = `SELECT * FROM moviesDb.FAVORITES WHERE userName = ? AND favoriteId= ?`;
-      console.log("about to run query: " + isUserFavorite);
-      const queryResult: FavoriteModel[] = await this.mysql.query(
-        isUserFavorite,
-        [userName, movieId]
-      );
-      console.log("ran isUserFavorite query successfully");
-      return queryResult.length > 0;
+      console.log("about to run query: " + queryName);
+      const queryResult: T = await this.mysql.query(query, params);
+      console.log(`ran ${queryName} query successfully`);
+      return queryResult;
     } catch (err) {
-      console.log("an error occured in isUserFavorite");
+      console.log(`an error occured in ${queryName}`);
       console.log(err);
       throw err;
     } finally {
