@@ -21,10 +21,11 @@ export class FavoritesDal {
 
   async getUserFavorites(userName: string): Promise<string[]> {
     try {
-      const getUserFavorites = `SELECT favoriteId FROM moviesDb.FAVORITES WHERE userName = '${userName}'`;
+      const getUserFavorites = `SELECT favoriteId FROM moviesDb.FAVORITES WHERE userName = ?`;
       console.log("about to run query: " + getUserFavorites);
       const queryResult: FavoriteModel[] = await this.mysql.query(
-        getUserFavorites
+        getUserFavorites,
+        [userName]
       );
       console.log("ran getUserFavorite query successfully");
       const favoriteToReturn = queryResult.map(
@@ -43,9 +44,9 @@ export class FavoritesDal {
 
   async insertUserFavorite(userName: string, movieId: string): Promise<void> {
     try {
-      const insertUserFavorite = `INSERT INTO moviesDb.FAVORITES (userName, favoriteId) VALUES ('${userName}','${movieId}')`;
+      const insertUserFavorite = `INSERT INTO moviesDb.FAVORITES (userName, favoriteId) VALUES (?,?)`;
       console.log("about to run query: " + insertUserFavorite);
-      await this.mysql.query(insertUserFavorite);
+      await this.mysql.query(insertUserFavorite, [userName, movieId]);
       console.log("ran insertUserFavorite query successfully");
     } catch (err) {
       console.log("an error occured in insertUserFavorite");
@@ -59,9 +60,9 @@ export class FavoritesDal {
 
   async deleteUserFavorite(userName: string, movieId: string): Promise<void> {
     try {
-      const deleteUserFavorite = `DELETE FROM moviesDb.FAVORITES WHERE userName = '${userName}' AND favoriteId='${movieId}'`;
+      const deleteUserFavorite = `DELETE FROM moviesDb.FAVORITES WHERE userName = ? AND favoriteId = ?`;
       console.log("about to run query: " + deleteUserFavorite);
-      await this.mysql.query(deleteUserFavorite);
+      await this.mysql.query(deleteUserFavorite, [userName, movieId]);
       console.log("ran deleteUserFavorite query successfully");
     } catch (err) {
       console.log("an error occured in deleteUserFavorite");
@@ -75,10 +76,11 @@ export class FavoritesDal {
 
   async isUserFavorite(userName: string, movieId: string): Promise<boolean> {
     try {
-      const isUserFavorite = `SELECT * FROM moviesDb.FAVORITES WHERE userName = '${userName}' AND favoriteId='${movieId}'`;
+      const isUserFavorite = `SELECT * FROM moviesDb.FAVORITES WHERE userName = ? AND favoriteId= ?`;
       console.log("about to run query: " + isUserFavorite);
       const queryResult: FavoriteModel[] = await this.mysql.query(
-        isUserFavorite
+        isUserFavorite,
+        [userName, movieId]
       );
       console.log("ran isUserFavorite query successfully");
       return queryResult.length > 0;

@@ -23,9 +23,9 @@ export class UsersDal {
 
   async createUser(userName: string): Promise<void> {
     try {
-      const insertUsers = `INSERT INTO moviesDb.USERS (userName) VALUES ('${userName}')`;
+      const insertUsers = `INSERT INTO moviesDb.USERS (userName) VALUES (?)`;
       console.log("about to run query: " + insertUsers);
-      await this.mysql.query(insertUsers);
+      await this.mysql.query(insertUsers, [userName]);
       console.log("ran insertUsers query successfully");
     } catch (err) {
       console.log("an error occured in createUser");
@@ -45,8 +45,10 @@ export class UsersDal {
 
   async userExist(userName: string): Promise<boolean> {
     const selectUsers: string = `SELECT * FROM moviesDb.USERS
-    WHERE userName = '${userName}'`;
-    const queryResult: UserModel[] = await this.mysql.query(selectUsers);
+    WHERE userName = ?`;
+    const queryResult: UserModel[] = await this.mysql.query(selectUsers, [
+      userName,
+    ]);
     console.log("ran userExist query successfully");
     return queryResult.length > 0;
   }
